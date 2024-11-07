@@ -23,7 +23,7 @@ load_dotenv()
 
 # MongoDB connection details
 DATABASE_NAME = "ChatBotDB"
-COLLECTION_NAME = "testing65"
+COLLECTION_NAME = "VoiceBot"
 api_key = os.getenv("OPENAI_API_KEY")
 
 # Initialize OpenAI model for Langchain
@@ -44,7 +44,7 @@ prompt = ChatPromptTemplate.from_messages([
 
 def fetch_email():
     try:
-        response = requests.get("https:/api./supermilla.com/email/get-email")
+        response = requests.get("https://api.supermilla.com/email/get-email")
         response.raise_for_status()  # Check if request was successful
         data = response.json()
         email = data.get("email")
@@ -69,7 +69,6 @@ async def entrypoint(ctx: JobContext):
     initial_ctx = llm.ChatContext()
     initial_ctx.messages.append(system_msg)
 
-    #Gemail fetching api's
     gmail_address = fetch_email()
     print(gmail_address)
     print(f"Fetched email: {gmail_address}")
@@ -115,17 +114,3 @@ async def entrypoint(ctx: JobContext):
 
 if __name__ == "__main__":
     cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))
-
-
-
-# sudo certbot --nginx -d api.supermilla.com -d www.api.supermilla.com
-
-# sudo nano /etc/nginx/sites-available/api.supermilla.com.conf
-
-# sudo ln -s /etc/nginx/sites-available/api.supermilla.com.conf /etc/nginx/sites-enabled/
-
-# cd /etc/nginx/sites-available
-# nano api.supermilla.com.conf
-
-
-# sudo ln -s /etc/nginx/sites-available/api.supermilla.com.conf /etc/nginx/sites-enabled/
